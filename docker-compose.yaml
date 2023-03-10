@@ -12,9 +12,9 @@ services:
         build: ./docker/php
         container_name: website
         ports:
-            - 3000:80
+            - 5000:80
         volumes:
-            - .:/var/www/html
+            - ./public:/var/www/html
 
 ###########################
 # Setup the Database (mysql)
