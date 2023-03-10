@@ -1,0 +1,45 @@
+version: '3'
+
+volumes:
+    database_data:
+        driver: local
+
+services:
+###########################
+# Setup the PHP container
+###########################
+    php:
+        build: ./docker/php
+        container_name: website
+        ports:
+            - 3000:80
+        volumes:
+            - .:/var/www/html
+
+###########################
+# Setup the Database (mysql)
+###########################
+    mysql:
+        image: mysql:latest
+        container_name: database
+        expose:
+            - 3306
+        volumes:
+            - database_data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_DATABASE: project
+            MYSQL_USER: project
+            MYSQL_PASSWORD: project
+
+###########################
+# Setup the PhpMyAdmin
+###########################
+    phpmyadmin:
+        image: phpmyadmin:latest
+        container_name: phpMyAdmin
+        ports: 
+            - 8090:80
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
