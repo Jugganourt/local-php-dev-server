@@ -11,8 +11,10 @@ services:
     php:
         build: ./docker/php
         container_name: website
+        restart: always
         ports:
-            - 5000:80
+            - 80:80
+            - 433:433
         volumes:
             - ./public:/var/www/html
 
@@ -27,6 +29,7 @@ services:
         volumes:
             - database_data:/var/lib/mysql
             - ./db-dump:/docker-entrypoint-initdb.d
+        restart: always
         environment:
             MYSQL_ROOT_PASSWORD: secret
             MYSQL_DATABASE: project
@@ -39,6 +42,7 @@ services:
     phpmyadmin:
         image: phpmyadmin:latest
         container_name: phpMyAdmin
+        restart: always
         ports: 
             - 8090:80
         environment:
