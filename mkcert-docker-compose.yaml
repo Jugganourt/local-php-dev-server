@@ -1,0 +1,9 @@
+version: '3'
+services:
+    mysql:
+        image: vishnunair/docker-mkcert
+        container_name: mkcert
+        volumes:
+            - ./docker/php/ssl/:/root/.local/share/mkcert
+        environment:
+            domain: localhost
